@@ -8,8 +8,8 @@ def create_netcdf(output_name, regridded_data_3d, regridded_lat_array, regridded
 
 	#create dimensions
 	#band = dataset.createDimension('band', bands_len) #11 can later be not hard coded but a variable e.g. band_number
-	lat = dataset.createDimension('lat', len(regridded_lat_array)) #400 not hard coded but e.g. len(lat_array) of the regridded dataset
-	lon = dataset.createDimension('lon', len(regridded_lon_array)) #400 not hard coded but e.g. len(lon_array) of the regridded dataset
+	lat = dataset.createDimension('lat', len(regridded_lat_array[:,0])) #400 not hard coded but e.g. len(lat_array) of the regridded dataset
+	lon = dataset.createDimension('lon', len(regridded_lon_array[0,:])) #400 not hard coded but e.g. len(lon_array) of the regridded dataset
 	time = dataset.createDimension('time', None) #unlimited time, if we want to add data later
 
 	# Create coordinate variables for 4-dimensions
@@ -57,25 +57,25 @@ def create_netcdf(output_name, regridded_data_3d, regridded_lat_array, regridded
 	#radiance.units = 'Watts_meter-2'
 	
 	#Assign values to the variables
-	lats = regridded_lat_array #np.arange(-90,91,2.5)
-	lons = regridded_lon_array #np.arange(-180,180,2.5)
+	lats = regridded_lat_array #np.flipud(regridded_data_3d[0,:,:]) #np.arange(-90,91,2.5)
+	lons = regridded_lon_array #regridded_data_3d[1,:,:]  #np.arange(-180,180,2.5)
 	latitudes[:,:] = lats[:,:]
 	longitudes[:,:] = lons[:,:]
 	print(latitudes)
 	print(longitudes)
-	reflectance1[:,:] = regridded_data_3d[0,:,:]
-	reflectance2[:,:] = regridded_data_3d[1,:,:]
-	reflectance3[:,:] = regridded_data_3d[2,:,:]
-	reflectance4[:,:] = regridded_data_3d[3,:,:]
-	reflectance5[:,:] = regridded_data_3d[4,:,:]
-	reflectance6[:,:] = regridded_data_3d[5,:,:]
-	reflectance7[:,:] = regridded_data_3d[6,:,:]
+	reflectance1[:,:] = regridded_data_3d[0,:,:] #regridded_data_3d[2,:,:]
+	reflectance2[:,:] = regridded_data_3d[1,:,:] #regridded_data_3d[3,:,:]
+	reflectance3[:,:] = regridded_data_3d[2,:,:] #regridded_data_3d[4,:,:]
+	reflectance4[:,:] = regridded_data_3d[3,:,:] #regridded_data_3d[5,:,:]
+	reflectance5[:,:] = regridded_data_3d[4,:,:] #regridded_data_3d[6,:,:]
+	reflectance6[:,:] = regridded_data_3d[5,:,:] #regridded_data_3d[7,:,:]
+	reflectance7[:,:] = regridded_data_3d[6,:,:] #regridded_data_3d[8,:,:]
 	#reflectance8[:,:] = regridded_data_3d[7,:,:]
-	qualityband9[:,:] = regridded_data_3d[7,:,:]
-	BT10[:,:] = regridded_data_3d[8,:,:]
-	BT11[:,:] = regridded_data_3d[9,:,:]
+	qualityband9[:,:] = regridded_data_3d[7,:,:] #regridded_data_3d[9,:,:]
+	BT10[:,:] = regridded_data_3d[8,:,:] #regridded_data_3d[10,:,:]
+	BT11[:,:] = regridded_data_3d[9,:,:] #regridded_data_3d[11,:,:]
 	print(BT10)
-	print(BT11.shape)
+	#print(BT11.shape)
 	
 	dataset.close()
 	return
