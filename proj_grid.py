@@ -12,14 +12,19 @@ def creategrid(center_lat, center_lon, dist_deg, spacing, mesh=False):
     #calculate the max and min  values of lats from the central point
     max_lat = center_lat + dist_deg
     min_lat = center_lat - dist_deg
+    print("max lat" , max_lat)
+    print("min lat" , min_lat)
     #calculate the max and min  values of lats from the central point
     max_lon = center_lon + dist_deg
-    min_lon = center_lon - dist_deg
+    min_lon = center_lon - dist_deg #- 0.0000000000003
+    print("max lon" , max_lon)
+    print("min lon" , min_lon)
     #calculate the size of the common grid (a square M by M pixels)  
     cell_size_deg = 2 * dist_deg
     
     N_lat = (max_lat - min_lat) / spacing
     N_lon = (max_lon - min_lon) / spacing
+    print("N_lon" , N_lon , "N_lat" , N_lat)
     N_lat = int(N_lat)
     print(N_lat)
     N_lon = int(N_lon) #math.ceil(N_lon) #int(N_lon)

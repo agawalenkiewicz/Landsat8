@@ -194,8 +194,8 @@ def DN_to_refl(image_data, M_ro, A_ro):
         (REFLECTANCE_ADD_BAND_x, where x is the band number)
     """
 
-    M_ro = 2.0E-05
-    A_ro = -0.1
+    #M_ro = 2.0E-05
+    #A_ro = -0.1
 
     Reflectance = np.ma.copy(image_data)
     Reflectance *= M_ro
@@ -209,7 +209,7 @@ def reflectance_corrected(refl, sun_elev_angle):
     sun_elev_angle  = sun elevantion angle (from metadata file) - single number
 	sun_zenith_angle = solar zenith angle (90 deg - sun_elev_angle) - single number
     """
-	sun_zenith_angle = 90 - sun_elev_angle
+	sun_zenith_angle = 90. - sun_elev_angle
 	Reflectance_corr = refl / (math.cos(sun_zenith_angle))
 	
 	return Reflectance_corr
